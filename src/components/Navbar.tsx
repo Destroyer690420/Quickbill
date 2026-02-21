@@ -2,7 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { cn } from '../utils/cn';
 
-export const Navbar = () => {
+interface NavbarProps {
+    onLogin?: () => void;
+    onSignup?: () => void;
+}
+
+export const Navbar = ({ onLogin, onSignup }: NavbarProps) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const navRef = useRef<HTMLElement>(null);
@@ -33,9 +38,7 @@ export const Navbar = () => {
             <div className="max-w-7xl mx-auto flex items-center justify-between">
                 {/* Logo */}
                 <div className="flex items-center gap-2 cursor-pointer group">
-                    <div className="w-8 h-8 rounded-md bg-[var(--color-green-volt)] flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-                        <span className="text-[var(--color-indigo-midnight)] font-bold text-lg font-space">Q</span>
-                    </div>
+                    <img src="/logo.svg" alt="Quickbill Logo" className="w-8 h-8 transition-transform duration-300 group-hover:scale-110" />
                     <span className="text-xl font-bold tracking-tight text-[var(--color-pearl)]">
                         Quickbill
                     </span>
@@ -57,11 +60,17 @@ export const Navbar = () => {
 
                 {/* CTA */}
                 <div className="hidden md:flex items-center gap-4">
-                    <button className="text-sm font-medium text-[var(--color-pearl)] hover:text-white transition-colors">
+                    <button
+                        onClick={onLogin}
+                        className="text-sm font-medium text-[var(--color-pearl)] hover:text-white transition-colors"
+                    >
                         Login
                     </button>
-                    <button className="px-5 py-2.5 rounded-[var(--radius-custom)] bg-[var(--color-green-volt)] text-[var(--color-indigo-midnight)] font-medium text-sm hover:bg-[var(--color-green-volt)]/90 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_0_15px_rgba(204,255,0,0.3)]">
-                        Start Building
+                    <button
+                        onClick={onSignup}
+                        className="px-5 py-2.5 rounded-[var(--radius-custom)] bg-[var(--color-green-volt)] text-[var(--color-indigo-midnight)] font-medium text-sm hover:bg-[var(--color-green-volt)]/90 transition-all duration-300 hover:-translate-y-0.5 shadow-[0_0_15px_rgba(204,255,0,0.3)]"
+                    >
+                        Sign up
                     </button>
                 </div>
 
@@ -88,11 +97,23 @@ export const Navbar = () => {
                         </a>
                     ))}
                     <div className="flex flex-col gap-4 mt-4 pt-4 border-t border-[var(--color-slate)]/50">
-                        <button className="text-left text-lg font-medium text-[var(--color-pearl)]">
+                        <button
+                            onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                onLogin?.();
+                            }}
+                            className="text-left text-lg font-medium text-[var(--color-pearl)]"
+                        >
                             Login
                         </button>
-                        <button className="px-5 py-3 rounded-[var(--radius-custom)] bg-[var(--color-green-volt)] text-[var(--color-indigo-midnight)] font-medium text-lg text-center w-full">
-                            Start Building
+                        <button
+                            onClick={() => {
+                                setIsMobileMenuOpen(false);
+                                onSignup?.();
+                            }}
+                            className="px-5 py-3 rounded-[var(--radius-custom)] bg-[var(--color-green-volt)] text-[var(--color-indigo-midnight)] font-medium text-lg text-center w-full"
+                        >
+                            Sign up
                         </button>
                     </div>
                 </div>

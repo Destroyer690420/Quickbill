@@ -2,7 +2,12 @@ import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ChevronRight } from 'lucide-react';
 
-export const Hero = () => {
+interface HeroProps {
+    onLogin?: () => void;
+    onSignup?: () => void;
+}
+
+export const Hero = ({ onLogin, onSignup }: HeroProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLHeadingElement>(null);
     const shimmerRef = useRef<HTMLSpanElement>(null);
@@ -79,11 +84,21 @@ export const Hero = () => {
                     </span>
                 </h1>
 
-                <div ref={ctaRef} className="flex flex-col sm:flex-row items-center gap-6">
-                    <button className="group relative px-8 py-4 bg-[var(--color-green-volt)] text-[var(--color-indigo-midnight)] rounded-full font-semibold text-lg overflow-hidden transition-transform duration-300 hover:scale-105 shadow-[0_0_30px_rgba(204,255,0,0.2)] hover:shadow-[0_0_50px_rgba(204,255,0,0.4)] flex items-center gap-2">
-                        <span className="relative z-10">Deploy Ledger</span>
+                <div ref={ctaRef} className="flex flex-col sm:flex-row items-center gap-6 z-20">
+                    <button
+                        onClick={onSignup}
+                        className="md:hidden group relative px-8 py-4 bg-[var(--color-green-volt)] text-[var(--color-indigo-midnight)] rounded-full font-semibold text-lg overflow-hidden transition-transform duration-300 hover:scale-105 shadow-[0_0_30px_rgba(204,255,0,0.2)] hover:shadow-[0_0_50px_rgba(204,255,0,0.4)] flex items-center gap-2"
+                    >
+                        <span className="relative z-10">Sign up</span>
                         <ChevronRight className="w-5 h-5 relative z-10 transition-transform duration-300 group-hover:translate-x-1" />
                         <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+                    </button>
+
+                    <button
+                        onClick={onLogin}
+                        className="md:hidden group py-4 px-8 border border-[var(--color-green-volt)] text-[var(--color-green-volt)] rounded-full font-semibold text-lg hover:bg-[var(--color-green-volt)] hover:text-[var(--color-indigo-midnight)] transition-all duration-300 shadow-[0_0_15px_rgba(204,255,0,0.1)] hover:shadow-[0_0_30px_rgba(204,255,0,0.3)] shadow-inner"
+                    >
+                        Login
                     </button>
 
                     <div className="flex items-center gap-3 text-[var(--color-pearl)]/70 font-jetbrains text-sm">
