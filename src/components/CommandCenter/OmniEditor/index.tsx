@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import { useInvoice } from '../../../hooks/useInvoice';
-import { Plus, X, Tag, User, MapPin, Receipt, Calculator, PlayCircle } from 'lucide-react';
-import { cn } from '../../../utils/cn';
+import { Plus, X, Tag, User, Receipt, Calculator, PlayCircle } from 'lucide-react';
 
 export const OmniEditor = () => {
     const { invoice, updateField, addItem, updateItem, removeItem } = useInvoice();
@@ -87,7 +85,7 @@ export const OmniEditor = () => {
                             </div>
                         ) : (
                             <div className="space-y-4">
-                                {invoice.items.map((item, idx) => (
+                                {invoice.items.map((item, _idx) => (
                                     <div key={item.id} className="p-3 bg-[#1E293B]/30 border border-[#334155] rounded-lg space-y-3 relative group">
                                         <button
                                             onClick={() => removeItem(item.id)}
